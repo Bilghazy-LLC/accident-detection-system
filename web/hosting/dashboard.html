@@ -4,20 +4,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
   <title>
     Black Dashboard by Creative Tim
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
   <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <link href="./assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="white-content sidebar-mini">
@@ -26,65 +26,24 @@
       <div class="sidebar-wrapper">
         <div class="logo">
           <a href="javascript:void(0)" class="simple-text logo-mini">
-            CT
+            SOT
           </a>
           <a href="javascript:void(0)" class="simple-text logo-normal">
-            Creative Tim
+            Accident Detection System
           </a>
         </div>
         <ul class="nav">
           <li class="active ">
             <a href="./dashboard.html">
-              <i class="tim-icons icon-chart-pie-36"></i>
+              <i class="fas fa-chart-line"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li>
-            <a href="./icons.html">
-              <i class="tim-icons icon-atom"></i>
-              <p>Icons</p>
-            </a>
-          </li>
-          <li>
-            <a href="./map.html">
-              <i class="tim-icons icon-pin"></i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li>
-            <a href="./notifications.html">
-              <i class="tim-icons icon-bell-55"></i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <li>
-            <a href="./user.html">
-              <i class="tim-icons icon-single-02"></i>
-              <p>User Profile</p>
-            </a>
-          </li>
-          <li>
-            <a href="./tables.html">
-              <i class="tim-icons icon-puzzle-10"></i>
-              <p>Table List</p>
-            </a>
-          </li>
-          <li>
-            <a href="./typography.html">
-              <i class="tim-icons icon-align-center"></i>
-              <p>Typography</p>
-            </a>
-          </li>
-          <li>
-            <a href="./rtl.html">
-              <i class="tim-icons icon-world"></i>
-              <p>RTL Support</p>
-            </a>
-          </li>
-          <li class="active-pro">
-            <a href="./upgrade.html">
-              <i class="tim-icons icon-spaceship"></i>
-              <p>Upgrade to PRO</p>
+          <li class="active ">
+            <a href="./dashboard.html">
+              <i class="fas fa-car-crash"></i>
+              <!-- <i class="fas fa-ambulance"></i> -->
+              <p>Accidents</p>
             </a>
           </li>
         </ul>
@@ -104,64 +63,30 @@
             </div>
             <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+            aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
-              <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split"></i>
+              <!-- <li class="search-bar input-group">
+                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i
+                    class="tim-icons icon-zoom-split"></i>
                   <span class="d-lg-none d-md-block">Search</span>
                 </button>
-              </li>
-              <li class="dropdown nav-item">
-                <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                  <div class="notification d-none d-lg-block d-xl-block"></div>
-                  <i class="tim-icons icon-sound-wave"></i>
-                  <p class="d-lg-none">
-                    Notifications
-                  </p>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
-                  <li class="nav-link">
-                    <a href="#" class="nav-item dropdown-item">Mike John responded to your email</a>
-                  </li>
-                  <li class="nav-link">
-                    <a href="javascript:void(0)" class="nav-item dropdown-item">You have 5 more tasks</a>
-                  </li>
-                  <li class="nav-link">
-                    <a href="javascript:void(0)" class="nav-item dropdown-item">Your friend Michael is in town</a>
-                  </li>
-                  <li class="nav-link">
-                    <a href="javascript:void(0)" class="nav-item dropdown-item">Another notification</a>
-                  </li>
-                  <li class="nav-link">
-                    <a href="javascript:void(0)" class="nav-item dropdown-item">Another one</a>
-                  </li>
-                </ul>
-              </li>
+              </li> -->
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <div class="photo">
-                    <img src="../assets/img/anime3.png" alt="Profile Photo">
+                    <img src="./assets/img/anime3.png" alt="Profile Photo">
                   </div>
                   <b class="caret d-none d-lg-block d-xl-block"></b>
-                  <p class="d-lg-none">
-                    Log out
-                  </p>
                 </a>
                 <ul class="dropdown-menu dropdown-navbar">
                   <li class="nav-link">
-                    <a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a>
-                  </li>
-                  <li class="nav-link">
-                    <a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a>
-                  </li>
-                  <li class="dropdown-divider"></li>
-                  <li class="nav-link">
-                    <a href="javascript:void(0)" class="nav-item dropdown-item">Log out</a>
+                    <a href="javascript:void(0)" class="nav-item dropdown-item" onclick="logout()">Log out</a>
                   </li>
                 </ul>
               </li>
@@ -170,7 +95,8 @@
           </div>
         </div>
       </nav>
-      <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
+      <!-- <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -181,7 +107,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- End Navbar -->
       <div class="content">
         <div class="row">
@@ -306,7 +232,8 @@
                           <p class="text-muted">Dwuamish Head, Seattle, WA 8:47 AM</p>
                         </td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <button type="button" rel="tooltip" title="" class="btn btn-link"
+                            data-original-title="Edit Task">
                             <i class="tim-icons icon-pencil"></i>
                           </button>
                         </td>
@@ -324,10 +251,13 @@
                         </td>
                         <td>
                           <p class="title">GDPR Compliance</p>
-                          <p class="text-muted">The GDPR is a regulation that requires businesses to protect the personal data and privacy of Europe citizens for transactions that occur within EU member states.</p>
+                          <p class="text-muted">The GDPR is a regulation that requires businesses to protect the
+                            personal data and privacy of Europe citizens for transactions that occur within EU member
+                            states.</p>
                         </td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <button type="button" rel="tooltip" title="" class="btn btn-link"
+                            data-original-title="Edit Task">
                             <i class="tim-icons icon-pencil"></i>
                           </button>
                         </td>
@@ -345,10 +275,12 @@
                         </td>
                         <td>
                           <p class="title">Solve the issues</p>
-                          <p class="text-muted">Fifty percent of all respondents said they would be more likely to shop at a company </p>
+                          <p class="text-muted">Fifty percent of all respondents said they would be more likely to shop
+                            at a company </p>
                         </td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <button type="button" rel="tooltip" title="" class="btn btn-link"
+                            data-original-title="Edit Task">
                             <i class="tim-icons icon-pencil"></i>
                           </button>
                         </td>
@@ -369,7 +301,8 @@
                           <p class="text-muted">Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM</p>
                         </td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <button type="button" rel="tooltip" title="" class="btn btn-link"
+                            data-original-title="Edit Task">
                             <i class="tim-icons icon-pencil"></i>
                           </button>
                         </td>
@@ -387,10 +320,12 @@
                         </td>
                         <td>
                           <p class="title">Export the processed files</p>
-                          <p class="text-muted">The report also shows that consumers will not easily forgive a company once a breach exposing their personal data occurs. </p>
+                          <p class="text-muted">The report also shows that consumers will not easily forgive a company
+                            once a breach exposing their personal data occurs. </p>
                         </td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <button type="button" rel="tooltip" title="" class="btn btn-link"
+                            data-original-title="Edit Task">
                             <i class="tim-icons icon-pencil"></i>
                           </button>
                         </td>
@@ -411,7 +346,8 @@
                           <p class="text-muted">Capitol Hill, Seattle, WA 12:34 AM</p>
                         </td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <button type="button" rel="tooltip" title="" class="btn btn-link"
+                            data-original-title="Edit Task">
                             <i class="tim-icons icon-pencil"></i>
                           </button>
                         </td>
@@ -566,30 +502,58 @@
       </footer>
     </div>
   </div>
+
+
+
+  <!-- Firebase Core JS -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-messaging.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAI1p9JBx5W2XJEsvjqyAFF3XM-hZGi7Vs",
+      authDomain: "sot-accident-detection.firebaseapp.com",
+      databaseURL: "https://sot-accident-detection.firebaseio.com",
+      projectId: "sot-accident-detection",
+      storageBucket: "sot-accident-detection.appspot.com",
+      messagingSenderId: "869290820627",
+      appId: "1:869290820627:web:d5a7830ce24e4e9e"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
   <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="./assets/js/core/jquery.min.js"></script>
+  <script src="./assets/js/core/popper.min.js"></script>
+  <script src="./assets/js/core/bootstrap.min.js"></script>
+  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <!-- Place this tag in your head or just before your close body tag. -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGMbDH3IPJSU9bmwJhBSGaa7N5MebS1XQ"></script>
   <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <script src="./assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
-  <script src="../assets/js/page-customization.js"></script>
+  <script src="./assets/demo/demo.js"></script>
+  <script src="./assets/js/page-customization.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       // Javascript method's body can be found in assets/js/demos.js
       demo.initDashboardPageCharts();
-
     });
   </script>
+  <!-- Global JS -->
+  <script src="./assets/js/global.js"></script>
+  <script src="./assets/js/dashboard.js"></script>
 </body>
 
 </html>
