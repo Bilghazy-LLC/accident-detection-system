@@ -238,26 +238,103 @@ const toggleBounce = () => {
 
 
 $(document).ready(function () {
-    db.collection('accidents').orderBy('timestamp', 'desc')
+    $('#driver-details').hide();
+
+    db.collection('accidents').orderBy('timestamp', 'desc').where('dispatched', '==', false)
         .get().then(snapshot => {
             toggleSpinner(false);
             snapshot.forEach(doc => {
                 // Get data from snapshot
                 var accident = doc.data();
 
+                // Get driver key
+                var driver = accident.driver.id;
+                loadDriver(driver);
+                loadAccident(accident);
+
                 // Add marker to map
                 addMarker({
                     lat: accident.location.latitude,
                     lng: accident.location.longitude
                 }, 'Accident detected at this location');
-
-
             });
 
         }).catch(err => {
             if (err) {
                 toggleSpinner(false);
                 showNotification(`Unable to update this driver's information.\n${err.message}`);
+                console.log(err.message);
+
             }
-        })
+        });
 });
+
+var accidentId;
+var emtId;
+const loadAccident = (accident) => {
+    accidentId = accident.key;
+
+    var dropdown = $('#emt-dropdown');
+
+    db.collection('emt').where('available', '==', true)
+        .get().then(snapshot => {
+            snapshot.forEach(doc => {
+                var emt = doc.data();
+
+                // Append EMT to dropdown
+                dropdown.append(`<option data-href="${emt.key}">${emt.name}</option>`);
+            });
+        }).catch(err => {
+            if (err) {
+                showNotification(err.message);
+            }
+        });
+
+    $(document).on('click', 'option[data-href]', function () {
+        console.log(this.dataset.href);
+        emtId = this.dataset.href;
+    })
+
+};
+
+// Show driver's details
+const loadDriver = (id) => {
+    db.collection('drivers').doc(id).get().then(snapshot => {
+        $('#driver-details').show();
+
+        var username = $('#username');
+        var email = $('#email');
+        var contact = $('#contact');
+        var carNumber = $('#car-number');
+
+        var driver = snapshot.data();
+        username.val(driver.name);
+        email.val(driver.email);
+        contact.val(driver.emergency_contact)
+        carNumber.val(driver.car_number);
+    }).catch(err => {
+        if (err) {
+            showNotification(err.message)
+        }
+    });
+}
+
+const sendDispatch = () => {
+    if (accidentId) {
+        toggleSpinner(true)
+        db.collection('accidents').doc(accidentId)
+            .update({
+                available: false
+            }).then(() => {
+                toggleSpinner(false)
+                showNotification('EMT dispatched successfully')
+            }).catch(err => {
+                if (err) {
+                    toggleSpinner(false)
+                    showNotification(err.message);
+                }
+            })
+    } else {
+        showNotification('Unable to dispatch EMT for this accident');
+    }
+};

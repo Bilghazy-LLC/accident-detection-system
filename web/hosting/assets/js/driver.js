@@ -1,4 +1,3 @@
-let currentDriver = {};
 var isNewDriver = false;
 var marker;
 var address;
@@ -252,7 +251,7 @@ $(document).ready(function () {
 
     var driverKey = window.localStorage.getItem('sot-driver');
 
-    if (driverKey) {
+    if (driverKey && driverKey !== undefined) {
         // Setup user information
         db.collection('drivers').doc(driverKey)
             .get().then(snapshot => {
@@ -290,24 +289,9 @@ const saveProfile = () => {
     // Post data if valid
     if (isValid) {
         toggleSpinner(true);
-        var driversRef = db.collection('drivers').doc(window.localStorage.getItem('sot-driver'))
-        if (isNewDriver) {
-            driversRef.update({
-                name: username,
-                email,
-                emergency_contact: contact,
-                car_number: carNumber
-            }).then(() => {
-                toggleSpinner(false);
-                showNotification("Driver's profile updated successfully")
-            }).catch(err => {
-                if (err) {
-                    toggleSpinner(false);
-                    showNotification(`Unable to update this driver's information.\n${err.message}`);
-                }
-            });
-        } else {
-            driversRef.set({
+        var driversRef = db.collection('drivers');
+        if (!isNewDriver) {
+            driversRef.doc(window.localStorage.getItem('sot-driver')).update({
                 name: username,
                 email,
                 emergency_contact: contact,
@@ -315,6 +299,25 @@ const saveProfile = () => {
             }).then(() => {
                 toggleSpinner(false);
                 showNotification("Driver's profile updated successfully");
+            }).catch(err => {
+                if (err) {
+                    toggleSpinner(false);
+                    showNotification(`Unable to update this driver's information.\n${err.message}`);
+                }
+            });
+        } else {
+            var docRef = driversRef.doc();
+            docRef.set({
+                name: username,
+                key: docRef.id,
+                email,
+                createdAt: new Date(),
+                emergency_contact: contact,
+                car_number: carNumber
+            }).then(() => {
+                toggleSpinner(false);
+                $('#email').attr('disabled', false);
+                showNotification("Driver's added successfully");
                 isNewDriver = false;
             }).catch(err => {
                 if (err) {
@@ -335,6 +338,7 @@ const addNewDriver = () => {
     // Clear all fields
     $('#username').val('');
     $('#email').val('');
+    $('#email').attr('disabled', false);
     $('#contact').val('');
     $('#car-number').val('');
 

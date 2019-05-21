@@ -64,24 +64,58 @@ const login = () => {
         return;
     }
 
+    toggleSpinner(true);
     // Sign in with new email and password
     auth.signInWithEmailAndPassword(email, password).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
 
-        console.log(errorCode);
-        console.log(errorMessage);
+        if (errorCode === 'auth/user-not-found') {
+            showNotification('User not found. Creating a new instance. Please wait...');
+            // Create account if user does not exist
+            auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                showNotification(errorMessage);
+                return;
 
+            }).then(userInfo => {
+                if (userInfo && userInfo !== undefined) {
+                    var user = userInfo.user;
+                    db.collection('emt').doc(user.uid)
+                        .set({
+                            name: user.displayName,
+                            email: user.email,
+                            createdAt: new Date().getTime(),
+                            key: user.uid
+                        }).then(() => {
+                            toggleSpinner(false);
+                            window.localStorage.setItem('sot-email', email);
+                            window.localStorage.setItem('sot-password', password);
+                            window.localStorage.setItem('sot-user-id', user.uid);
+                            window.location.href = 'dashboard.html';
+                        })
+                }
+            });
+
+        } else {
+            toggleSpinner(false);
+            showNotification(errorMessage);
+        }
+    }).then(userInfo => {
+        var user = userInfo.user;
+        if (user) {
+            toggleSpinner(false);
+            window.localStorage.setItem('sot-email', email);
+            window.localStorage.setItem('sot-password', password);
+            window.localStorage.setItem('sot-user-id', user.uid);
+            window.location.href = 'dashboard.html';
+        } else {
+            showNotification('Cannot find user information');
+        }
     });
-
-    // Create account if user does not exist
-    // auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
-    //     // Handle Errors here.
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-    //     showNotification(errorMessage);
-    // });
 };
 
 

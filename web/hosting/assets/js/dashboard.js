@@ -48,7 +48,7 @@ const bindDriversUI = () => {
                 ${driver.emergency_contact}
                 </td>
                 <td>
-                ${new Date(driver.createdAt.seconds).toDateString()}
+                ${driver.createdAt ? new Date(driver.createdAt.seconds).toDateString() : 'N/A'}
                 </td>
             </tr>
             `);

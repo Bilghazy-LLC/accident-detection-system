@@ -114,6 +114,72 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row" id="driver-details">
+                    <div class="col-md-10 mr-auto ml-auto text-center">
+                        <div class="card" style="height: 500px;">
+                            <div class="card-header">
+                                <h5 class="title">Showing details for accident</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Car Number</label>
+                                                <input type="text" class="form-control" placeholder="Loading..."
+                                                    id="car-number">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="username">Full Name</label>
+                                                <input type="text" class="form-control" placeholder="Loading..."
+                                                    id="username">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email">Email address</label>
+                                                <input type="email" class="form-control" placeholder="Loading..."
+                                                    id="email" disabled="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Emergency Contact</label>
+                                                <input type="text" class="form-control" placeholder="057******67"
+                                                    id="contact">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Pick EMT</label>
+                                                <select class="form-control" id="emt-dropdown"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <!-- <label for="username">Full Name</label>
+                                                <input type="text" class="form-control" placeholder="Loading..."
+                                                    id="emt-details"> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-primary" onclick="sendDispatch()">Send
+                                    dispatch</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <!-- Footer -->
