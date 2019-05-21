@@ -205,6 +205,7 @@ const addMarker = (locationAddress, titleSnippet) => {
 };
 
 $(document).ready(function () {
+    toggleSpinner();
 
     var username = $('#username');
     var email = $('#email');
@@ -212,6 +213,7 @@ $(document).ready(function () {
     var carNumber = $('#car-number');
 
     // Setup user information
+    
 
 });
 

@@ -1,6 +1,8 @@
 let drivers = [];
 
 $(document).ready(function () {
+    toggleSpinner(false);
+    
     // Load charts
     initDashboardPageCharts();
     // Query options: Loads data directly from the database server
