@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="./assets/img/favicon.png">
   <title>
-    Black Dashboard by Creative Tim
+    Accident Detection System
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -41,7 +41,7 @@
             </a>
           </li>
           <li class="">
-            <a href="./maps.html">
+            <a href="./accidents.html">
               <i class="fas fa-car-crash"></i>
               <!-- <i class="fas fa-ambulance"></i> -->
               <p>Accidents</p>
@@ -62,7 +62,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Maps</a>
+            <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -115,7 +115,7 @@
             <!-- Accident Stats Card End -->
           </div>
         </div>
-        <div class="row">
+        <div class="row" hidden>
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
@@ -164,7 +164,7 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table tablesorter " id="">
+                  <table class="table tablesorter table-hover">
                     <thead class=" text-primary">
                       <tr>
                         <th>
@@ -174,35 +174,14 @@
                           Car Number
                         </th>
                         <th>
-                          City
-                        </th>
-                        <th class="text-center">
                           Emergency Contact
                         </th>
-                        <th class="text-center">
-                          Registration Date
+                        <th>
+                          Created On
                         </th>
                       </tr>
                     </thead>
-                    <tbody id="drivers-table">
-                      <tr>
-                        <td>
-                          Dakota Rice
-                        </td>
-                        <td>
-                          Niger
-                        </td>
-                        <td>
-                          Oud-Turnhout
-                        </td>
-                        <td class="text-center">
-                          $36,738
-                        </td>
-                        <td class="text-center">
-                          May 19, 2019
-                        </td>
-                      </tr>
-                    </tbody>
+                    <tbody id="drivers-table"></tbody>
                   </table>
                 </div>
               </div>

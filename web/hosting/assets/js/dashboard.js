@@ -1,36 +1,63 @@
+let drivers = [];
+
 $(document).ready(function () {
-
+    // Load charts
     initDashboardPageCharts();
+    // Query options: Loads data directly from the database server
+    // var getOptions = {
+    //     source: 'server'
+    // };
 
-    // Load all drivers
-    var drivers = loadDrivers();
-    showNotification(`${drivers.length == 0 ? 'No drivers registered so far...' : drivers}`);
-
+    // Query is limited to the first 20 drivers only for testing purposes
+    db.collection('drivers')
+        .limit(50).onSnapshot({
+            // Listen for document metadata changes
+            includeMetadataChanges: true
+        }, snapshots => {
+            drivers = [];
+            snapshots.forEach(doc => {
+                // Add driver to the drivers list
+                drivers.push(doc.data());
+            });
+            bindDriversUI();
+        }, err => {
+            showNotification(`Encountered error: ${err}`);
+        });
 });
 
+const bindDriversUI = () => {
+    // Setup table
+    var table = $('#drivers-table');
+    table.empty();
 
-// Load all drivers registered on the system
-const loadDrivers = () => {
-    var drivers = [];
-    db.collection('drivers')
-        .limit(20).get()
-        .then(snapshots => {
-            snapshots.forEach(doc => {
-                // Check for nullity & existence
-                if (doc && doc.exists) {
-                    // Add driver to the drivers list
-                    drivers.push(doc.data());
-                }
-            });
-        }).catch(err => {
-            if (err) {
-                return console.log(err.message);
-            }
+    if (drivers.length !== 0) {
+        drivers.forEach(driver => {
+
+            // Append data to the table
+            table.append(`
+            <tr data-href="${driver.key}">
+                <td>
+                ${driver.name}
+                </td>
+                <td>
+                ${driver.car_number}
+                </td>
+                <td>
+                ${driver.emergency_contact}
+                </td>
+                <td>
+                ${new Date(driver.createdAt.seconds).toDateString()}
+                </td>
+            </tr>
+            `);
         });
-    return drivers;
+    }
+
+    $(document).on('click', 'tr[data-href]', function () {
+        showNotification(this.dataset.href);
+    });
+
 };
-
-
 
 const initDashboardPageCharts = function () {
 
