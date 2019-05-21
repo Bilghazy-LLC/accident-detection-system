@@ -43,9 +43,15 @@
                 </div>
                 <ul class="nav">
                     <li class="">
-                        <a href="driver.html">
-                            <i class="fas fa-home"></i>
-                            <p>Home</p>
+                        <a href="dashboard.html">
+                            <i class="fas fa-chart-line"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="accidents.html">
+                            <i class="fas fa-car-crash"></i>
+                            <p>Accidents</p>
                         </a>
                     </li>
                 </ul>
@@ -96,11 +102,15 @@
 
             <!-- Main Content -->
             <div class="content">
+                <br>
+                <br>
                 <div class="row">
                     <div class="col-md-10 mr-auto ml-auto text-center">
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="title">Setup Your Profile</h5>
+                                <button type="submit" class="btn btn-fill btn-info"
+                                    onclick="addNewDriver()">Add new driver</button>
                             </div>
                             <div class="card-body">
                                 <form>
@@ -131,7 +141,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Emergency Contact</label>
-                                                <input type="number" class="form-control" placeholder="057******67"
+                                                <input type="text" class="form-control" placeholder="057******67"
                                                     id="contact">
                                             </div>
                                         </div>
@@ -214,6 +224,7 @@
     <script src="./assets/demo/demo.js"></script>
     <script src="./assets/js/page-customization.js"></script>
     <!-- Global JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/validator/10.11.0/validator.min.js"></script>
     <script src="./assets/js/global.js"></script>
     <script src="./assets/js/driver.js"></script>
 </body>

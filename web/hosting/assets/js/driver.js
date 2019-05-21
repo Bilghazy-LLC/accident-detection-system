@@ -1,7 +1,16 @@
+let currentDriver = {};
+var isNewDriver = false;
+var marker;
+var address;
+
+
 // Maps
 var mapOptions = {
-    zoom: 13,
-    center: new google.maps.LatLng(5.654614, -0.1839739),
+    zoom: 19,
+    center: {
+        lat: 5.654614,
+        lng: -0.1839739
+    },
     scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
     styles: [{
             "elementType": "geometry",
@@ -193,15 +202,44 @@ var mapOptions = {
 };
 let map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+
 // Add a new marker to the maps
 const addMarker = (locationAddress, titleSnippet) => {
-    var marker = new google.maps.Marker({
+    var image = {
+        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        // This marker is 20 pixels wide by 32 pixels high.
+        size: new google.maps.Size(20, 32),
+        // The origin for this image is (0, 0).
+        origin: new google.maps.Point(0, 0),
+        // The anchor for this image is the base of the flagpole at (0, 32).
+        anchor: new google.maps.Point(0, 32)
+    };
+
+    // Shapes define the clickable region of the icon. The type defines an HTML
+    // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+    // The final coordinate closes the poly by connecting to the first coordinate.
+    var shape = {
+        coords: [1, 1, 1, 20, 18, 20, 18, 1],
+        type: 'poly'
+    };
+
+
+    marker = new google.maps.Marker({
         position: locationAddress,
+        map: map,
+        icon: image,
+        shape,
         title: titleSnippet
     });
+    marker.addListener('click', toggleBounce)
+};
 
-    // To add the marker to the map, call setMap();
-    marker.setMap(map);
+const toggleBounce = () => {
+    if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+    } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
 };
 
 $(document).ready(function () {
@@ -212,15 +250,93 @@ $(document).ready(function () {
     var contact = $('#contact');
     var carNumber = $('#car-number');
 
-    // Setup user information
-    
+    var driverKey = window.localStorage.getItem('sot-driver');
 
+    if (driverKey) {
+        // Setup user information
+        db.collection('drivers').doc(driverKey)
+            .get().then(snapshot => {
+                if (snapshot.exists) {
+                    var driver = snapshot.data();
+                    username.val(driver.name);
+                    email.val(driver.email);
+                    contact.val(driver.emergency_contact)
+                    carNumber.val(driver.car_number);
+
+                    if (driver.address) {
+                        addMarker(new google.maps.LatLng(driver.address.latitude, driver.address.longitude), driver.name);
+                    }
+                } else {
+                    showNotification('This driver does not exist');
+                }
+            }).catch(err => {
+                if (err) {
+                    showNotification(err.message);
+                }
+            });
+    }
 });
 
-
+// Save driver information
 const saveProfile = () => {
     var username = $('#username').val();
     var email = $('#email').val();
     var contact = $('#contact').val();
     var carNumber = $('#car-number').val();
+
+    // Check the validity of all fields
+    var isValid = !validator.isEmpty(username) && !validator.isEmpty(email) && !validator.isEmpty(contact) && !validator.isEmpty(carNumber);
+
+    // Post data if valid
+    if (isValid) {
+        toggleSpinner(true);
+        var driversRef = db.collection('drivers').doc(window.localStorage.getItem('sot-driver'))
+        if (isNewDriver) {
+            driversRef.update({
+                name: username,
+                email,
+                emergency_contact: contact,
+                car_number: carNumber
+            }).then(() => {
+                toggleSpinner(false);
+                showNotification("Driver's profile updated successfully")
+            }).catch(err => {
+                if (err) {
+                    toggleSpinner(false);
+                    showNotification(`Unable to update this driver's information.\n${err.message}`);
+                }
+            });
+        } else {
+            driversRef.set({
+                name: username,
+                email,
+                emergency_contact: contact,
+                car_number: carNumber
+            }).then(() => {
+                toggleSpinner(false);
+                showNotification("Driver's profile updated successfully");
+                isNewDriver = false;
+            }).catch(err => {
+                if (err) {
+                    toggleSpinner(false);
+                    showNotification(`Unable to update this driver's information.\n${err.message}`);
+                }
+            });
+        }
+
+    } else {
+        showNotification("Please enter this driver's information completely. Make sure to enter the full name, emergency contact, address etc before you proceed!")
+    }
 };
+
+const addNewDriver = () => {
+    isNewDriver = true;
+
+    // Clear all fields
+    $('#username').val('');
+    $('#email').val('');
+    $('#contact').val('');
+    $('#car-number').val('');
+
+    window.localStorage.setItem('sot-driver', null);
+}

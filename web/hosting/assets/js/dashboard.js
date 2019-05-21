@@ -56,7 +56,8 @@ const bindDriversUI = () => {
     }
 
     $(document).on('click', 'tr[data-href]', function () {
-        showNotification(this.dataset.href);
+        window.localStorage.setItem('sot-driver', this.dataset.href);
+        window.location.href = 'driver.html';
     });
 
 };

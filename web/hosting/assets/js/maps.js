@@ -1,6 +1,6 @@
 // Maps
 var mapOptions = {
-    zoom: 13,
+    zoom: 19,
     center: new google.maps.LatLng(5.654614, -0.1839739),
     scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
     styles: [{
@@ -193,19 +193,71 @@ var mapOptions = {
 };
 let map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+
+var marker;
 // Add a new marker to the maps
 const addMarker = (locationAddress, titleSnippet) => {
-    var marker = new google.maps.Marker({
+    var image = {
+        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        // This marker is 20 pixels wide by 32 pixels high.
+        size: new google.maps.Size(20, 32),
+        // The origin for this image is (0, 0).
+        origin: new google.maps.Point(0, 0),
+        // The anchor for this image is the base of the flagpole at (0, 32).
+        anchor: new google.maps.Point(0, 32)
+    };
+
+    // Shapes define the clickable region of the icon. The type defines an HTML
+    // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+    // The final coordinate closes the poly by connecting to the first coordinate.
+    var shape = {
+        coords: [1, 1, 1, 20, 18, 20, 18, 1],
+        type: 'poly'
+    };
+
+
+    marker = new google.maps.Marker({
         position: locationAddress,
+        map: map,
+        icon: image,
+        shape: shape,
+        animation: google.maps.Animation.DROP,
+        zIndex: 5,
         title: titleSnippet
     });
-
-    // To add the marker to the map, call setMap();
-    marker.setMap(map);
+    marker.addListener('click', toggleBounce)
 };
 
+const toggleBounce = () => {
+    if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+    } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+};
+
+
 $(document).ready(function () {
-    
+    db.collection('accidents').orderBy('timestamp', 'desc')
+        .get().then(snapshot => {
+            toggleSpinner(false);
+            snapshot.forEach(doc => {
+                // Get data from snapshot
+                var accident = doc.data();
+
+                // Add marker to map
+                addMarker({
+                    lat: accident.location.latitude,
+                    lng: accident.location.longitude
+                }, 'Accident detected at this location');
+
+
+            });
+
+        }).catch(err => {
+            if (err) {
+                toggleSpinner(false);
+                showNotification(`Unable to update this driver's information.\n${err.message}`);
+            }
+        })
 });
-
-

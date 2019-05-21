@@ -52,30 +52,36 @@ const logout = () => {
 };
 
 // Login as a driver
-const loginDriver = () => {
+const login = () => {
     var email = $('#email').val();
     var password = $('#password').val();
+
+    if (validator.isEmpty(email)) {
+        showNotification('Please enter a valid email address');
+        return;
+    } else if (validator.isEmpty(password) || password.length < 6) {
+        showNotification('Please enter a valid password. It should be a t least six characters long')
+        return;
+    }
 
     // Sign in with new email and password
     auth.signInWithEmailAndPassword(email, password).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        // ...
+
+        console.log(errorCode);
+        console.log(errorMessage);
+
     });
 
     // Create account if user does not exist
-    auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        showNotification(errorMessage);
-    });
-};
-
-// Login as an Admin/EMT
-const loginAdmin = () => {
-
+    // auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
+    //     // Handle Errors here.
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     showNotification(errorMessage);
+    // });
 };
 
 

@@ -1,40 +1,25 @@
 {
-  "name": "material-kit",
+  "name": "accident-detection-system",
   "version": "2.0.5",
-  "description": "Material Kit, a Google Material Desgin. Coded by Creative Tim",
+  "description": "SOT final year project",
   "main": "index.html",
   "directories": {
     "example": "root"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "firebase deploy --only hosting"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/creativetimofficial/material-kit.git"
+    "url": "git+https://github.com/Bilghazy-LLC/accident-detection-system.git"
   },
   "keywords": [
-    "material kit",
-    "bootstrap material admin",
-    "bootstrap material kit",
-    "material design admin",
-    "material design",
-    "creative tim",
-    "html kit",
-    "html css kit",
-    "web kit",
-    "freebie",
-    "free bootstrap kit",
-    "css3 kit",
-    "bootstrap admin",
-    "bootstrap kit",
-    "frontend",
-    "responsive bootstrap kit"
+    "SOT accident detection system"
   ],
-  "author": "Creative Tim <hello@creative-tim.com> (https://www.creative-tim.com/)",
+  "author": "Pelet Kwasi Narh",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/creativetimofficial/material-kit/issues"
+    "url": "https://github.com/Bilghazy-LLC/accident-detection-system/issues"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -45,5 +30,5 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-open": "^3.0.1"
   },
-  "homepage": "https://demos.creative-tim.com/material-kit/index.html"
+  "homepage": "https://sot-accident-detection.firebaseapp.com/"
 }
