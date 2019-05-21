@@ -5,80 +5,92 @@
   LiquidCrystal_I2C lcd(0x27, 2,1,0,4,5,6,7,3, POSITIVE);
 
   
-#define TILT 2 
-#define LED 13
+//............................................................
 
-void setup() {
-    // put your setup code here, to run once:
+#define vibrate_sense 9
+
+char str[70];
+char *test="$GPGGA";      
+char logitude[10];
+char latitude[10];
+
+int i,j,k;
+int temp;
+//int Ctrl+z=26;    //for sending msg
+int led=13;
+
+void setup()
+{
   lcd.begin(16,2);
-  lcd.clear();
-  lcd.println("Accident Detection System");
-
-  delay(1000);
-
-  // vibrator sensor module
-  Serial.begin(9600);
-  Serial.println("Vibrator Sensor Robo");
-
-  pinMode(TILT, INPUT);
-  pinMode(LED, OUTPUT);
+  Serial.begin(4800);
+  pinMode(vibrate_sense, INPUT);
+  pinMode(led, OUTPUT);
+  lcd.setCursor(0,0);
+  lcd.print("GPS Besed Vehicle ");
+  lcd.setCursor(0,1);
+  lcd.print("Tracking System");
+  delay(3000);
 }
 
-void loop() {
+void loop()
+{
+  if (digitalRead(vibrate_sense)==0)
+  {
+    for(i=18;i<27;i++)          //extract latitude from string
+    {
+      latitude[j]=str[i];
+      j++;
+    }
+   
+    for(i=30;i<40;i++)          //extract longitude from string
+    {
+      logitude[k]=str[i];
+      k++;
+    }
+   
+    lcd.setCursor(0,0);        //display latitude and longitude on 16X2 lcd display 
+    lcd.print("Lat(N)");
+    lcd.print(latitude);
+    lcd.setCursor(0,1);
+    lcd.print("Lon(E)");
+    lcd.print(logitude);
+    delay(100);
+    Serial.begin(9600);
+    Serial.println("AT+CMGF=1");    //select text mode
+    delay(10);
+    Serial.println("AT+CMGS=\"9610126059\"");  // enter receipent number
+    Serial.println("Vehicle Accident Happend at Place:");
+    Serial.print("Latitude(N): ");             //enter latitude in msg
+    Serial.println(latitude);                  //enter latitude value in msg
+    Serial.print("Longitude(E): ");            //enter Longitude in Msg
+    Serial.println(logitude);                  //enter longitude value in msg
+    Serial.print("Help Please");
+    Serial.write(26);                      //send msg  Ctrl+z=26
+    temp=0;
+    i=0;
+    j=0;
+    k=0;
+    delay(20000);                        // next reading within 20 seconds
+    Serial.begin(4800);
+  }
+}
 
-  // vibration Sensor codes
-  int vibrat_sensed = digitalRead(TILT);
-
-  if(vibrat_sensed == LOW){
-      digitalWrite(LED, HIGH);
-      Serial.println("Piiiiii pooooooo Accident Detected");
-    
-    } else {
-              digitalWrite(LED,LOW);
-              Serial.println("Driver is Happy No Accident");
-      
+void serialEvent()
+{
+  while (Serial.available())            //Serial incomming data from GPS
+  {
+    char inChar = (char)Serial.read();
+     str[i]= inChar;                    //store incomming data from GPS to temparary string str[]
+     i++;
+     if (i < 7)                      
+     {
+      if(str[i-1] != test[i-1])         //check for right string
+      {
+        i=0;
       }
-
-    delay(400);
-
-
- 
-  // LCD Codes 
-
-  // scroll 13 positions (string length) to the left
-  // to move it offscreen left:
-  for (int positionCounter = 0; positionCounter < 13; positionCounter++) {
-    // scroll one position left:
-    lcd.scrollDisplayLeft();
-    // wait a bit:
-    delay(300);
+     }
+    if(i >=60)
+    {
+     break;
+    }}
   }
-
-  // scroll 29 positions (string length + display length) to the right
-  // to move it offscreen right:
-  for (int positionCounter = 0; positionCounter < 29; positionCounter++) {
-    // scroll one position right:
-    lcd.scrollDisplayRight();
-    // wait a bit:
-    delay(300);
-  }
-
-  // scroll 16 positions (display length + string length) to the left
-  // to move it back to center:
-  for (int positionCounter = 0; positionCounter < 16; positionCounter++) {
-    // scroll one position left:
-    lcd.scrollDisplayLeft();
-    // wait a bit:
-    delay(300);
-  }
-
-  // delay at the end of the full loop:
-  delay(1000);
-
-
-
-
-  
-  
-
-}
