@@ -1,6 +1,5 @@
 {
   "projects": {
-    "staging": "sot-accident-detection-system",
-    "default": "sot-accident-detection-system"
+    "default": "sot-accident-detection"
   }
 }
