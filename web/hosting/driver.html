@@ -35,16 +35,9 @@
                 </div>
                 <ul class="nav">
                     <li class="">
-                        <a href="dashboard.html">
-                            <i class="fas fa-chart-line"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="accidents.html">
-                            <i class="fas fa-car-crash"></i>
-                            <!-- <i class="fas fa-ambulance"></i> -->
-                            <p>Accidents</p>
+                        <a href="driver.html">
+                            <i class="fas fa-home"></i>
+                            <p>Home</p>
                         </a>
                     </li>
                 </ul>
@@ -62,7 +55,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="javascript:void(0)">Accidents</a>
+                        <a class="navbar-brand" href="driver.html">Profile Information</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -96,16 +89,62 @@
             <!-- Main Content -->
             <div class="content">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="card card-plain">
+                    <div class="col-md-10 mr-auto ml-auto text-center">
+                        <div class="card">
                             <div class="card-header">
-                                Google Maps
+                                <h5 class="title">Setup Your Profile</h5>
                             </div>
                             <div class="card-body">
-                                <div id="map" class="map"></div>
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Car Number</label>
+                                                <input type="text" class="form-control" placeholder="Loading..."
+                                                    id="car-number">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="username">Full Name</label>
+                                                <input type="text" class="form-control" placeholder="Loading..."
+                                                    id="username">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email">Email address</label>
+                                                <input type="email" class="form-control" placeholder="Loading..."
+                                                    id="email" disabled="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Emergency Contact</label>
+                                                <input type="number" class="form-control" placeholder="057******67"
+                                                    id="contact">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <div class="map" id="map" style="height: 500px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-primary"
+                                    onclick="saveProfile()">Save</button>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -168,7 +207,7 @@
     <script src="./assets/js/page-customization.js"></script>
     <!-- Global JS -->
     <script src="./assets/js/global.js"></script>
-    <script src="./assets/js/maps.js"></script>
+    <script src="./assets/js/driver.js"></script>
 </body>
 
 </html>

@@ -722,18 +722,19 @@ demo = {
     marker.setMap(map);
   },
 
-  showNotification: function(message) {
+  showNotification: function(from, align) {
     color = Math.floor((Math.random() * 4) + 1);
 
     $.notify({
       icon: "tim-icons icon-bell-55",
-      message: message
+      message: "Welcome to <b>Black Dashboard</b> - a beautiful freebie for every web developer."
+
     }, {
       type: type[color],
       timer: 8000,
       placement: {
-        from: 'top',
-        align: 'left'
+        from: from,
+        align: align
       }
     });
   }
