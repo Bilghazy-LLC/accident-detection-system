@@ -1,5 +1,6 @@
 package io.sotads.core.injection
 
+import io.sotads.core.firebase.Firebase
 import io.sotads.core.room.ADSDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -9,5 +10,5 @@ val roomModule = module {
 }
 
 val firebaseModule = module {
-
+    single { Firebase.get() }
 }

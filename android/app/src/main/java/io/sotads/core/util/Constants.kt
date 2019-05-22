@@ -2,6 +2,7 @@ package io.sotads.core.util
 
 // Misc
 const val ROOM_DB_NAME = "ads_room.db"
+const val PREFS_NAME = "ads_prefs"
 const val USER_KEY = "user_key"
 
 // Messaging
