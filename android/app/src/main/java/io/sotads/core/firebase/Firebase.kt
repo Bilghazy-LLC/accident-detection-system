@@ -143,34 +143,39 @@ class Firebase private constructor(private val app: ADSApplication) {
             callback.onError(it.localizedMessage)
             callback.onComplete()
         }.addOnCompleteListener {
-            val authResult = it.result
-            val user = authResult?.user
-            if (user != null) {
-                // Create model
-                val model = EmtDataModel(user.uid)
+            try {
+                val authResult = it.result
+                val user = authResult?.user
+                if (user != null) {
+                    // Create model
+                    val model = EmtDataModel(user.uid)
 
-                firestore.collection(EMT_REF).document(model.key)
-                    .set(model).addOnCompleteListener {
-                        // Store model in shared prefs
-                        app.prefs.edit {
-                            putString(USER_KEY, model.key)
-                            apply()
-                        }
-
-                        app.ioScope.launch {
-                            dao.createEMT(model)
-                            app.uiScope.launch {
-                                callback.onSuccess(model)
-                                callback.onComplete()
-
-                                context.intentTo(HomeActivity::class.java, true)
+                    firestore.collection(EMT_REF).document(model.key)
+                        .set(model).addOnCompleteListener {
+                            // Store model in shared prefs
+                            app.prefs.edit {
+                                putString(USER_KEY, model.key)
+                                apply()
                             }
-                        }
-                    }.addOnFailureListener { exception ->
-                        callback.onError(exception.localizedMessage)
-                        callback.onComplete()
-                    }
 
+                            app.ioScope.launch {
+                                dao.createEMT(model)
+                                app.uiScope.launch {
+                                    callback.onSuccess(model)
+                                    callback.onComplete()
+
+                                    context.intentTo(HomeActivity::class.java, true)
+                                }
+                            }
+                        }.addOnFailureListener { exception ->
+                            callback.onError(exception.localizedMessage)
+                            callback.onComplete()
+                        }
+
+                }
+            } catch (e: Exception) {
+                callback.onError(e.localizedMessage)
+                callback.onComplete()
             }
         }.addOnFailureListener {
             callback.onError(it.localizedMessage)

@@ -1,6 +1,7 @@
 package io.sotads.view
 
 import android.content.Intent
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -17,6 +18,7 @@ import io.sotads.core.util.pushNotification
 import io.sotads.data.Accident
 import io.sotads.data.Driver
 import io.sotads.databinding.ActivityAccidentBinding
+import java.util.*
 
 class AccidentActivity : BaseActivity() {
     private lateinit var binding: ActivityAccidentBinding
@@ -42,7 +44,22 @@ class AccidentActivity : BaseActivity() {
                 }
 
                 override fun onSuccess(response: Accident?) {
-                    if (response != null) binding.accident = response
+                    if (response != null) {
+                        binding.accident = response
+
+                        try {
+                            val location = binding.accident?.location
+                            val geocoder = Geocoder(binding.root.context, Locale.getDefault())
+                            binding.address.summary =
+                                geocoder.getFromLocation(
+                                    location?.latitude ?: 5.623,
+                                    location?.longitude ?: -0.184,
+                                    1
+                                )[0].getAddressLine(0)
+                        } catch (ex: Exception) {
+                            debugLog(ex.localizedMessage)
+                        }
+                    }
                 }
             })
 
