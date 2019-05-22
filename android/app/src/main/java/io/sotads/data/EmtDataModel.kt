@@ -14,6 +14,7 @@ import kotlinx.android.parcel.Parcelize
 data class EmtDataModel(
     @PrimaryKey(autoGenerate = false)
     override val key: String,
+    var name: String? = null,
     var available: Boolean = true,
     @SerializedName("emergency_type")
     var emergencyType: String = EmergencyType.MINOR

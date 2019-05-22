@@ -13,7 +13,7 @@
                                              android:layout_height="wrap_content"
                                              android:padding="@dimen/padding_normal"
                                              android:textAppearance="?textAppearanceHeadline5"
-                                             android:text="@string/ads_app_name"/>
+                                             android:text="@string/long_ads_app_name"/>
 
     <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
                                              android:layout_height="wrap_content"

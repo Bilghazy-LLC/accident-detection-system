@@ -3,6 +3,8 @@ package io.sotads.core.firebase
 import androidx.core.content.edit
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
+import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.intentTo
 import io.sotads.core.ADSApplication
 import io.sotads.core.room.ADSDao
@@ -13,11 +15,14 @@ import io.sotads.data.Driver
 import io.sotads.data.EmtDataModel
 import io.sotads.view.HomeActivity
 import io.sotads.view.MainActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class Firebase private constructor(private val app: ADSApplication) {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val messaging: FirebaseMessaging = FirebaseMessaging.getInstance()
 
     companion object {
         @Volatile
@@ -116,22 +121,32 @@ class Firebase private constructor(private val app: ADSApplication) {
                 // Create model
                 val model = EmtDataModel(user.uid)
 
-                // Store model in shared prefs
-                app.prefs.edit {
-                    putString(USER_KEY, model.key)
-                    apply()
-                }
+                firestore.collection(EMT_REF).document(model.key)
+                    .set(model).addOnCompleteListener {
+                        // Store model in shared prefs
+                        app.prefs.edit {
+                            putString(USER_KEY, model.key)
+                            apply()
+                        }
 
-                app.ioScope.launch {
-                    dao.createEMT(model)
-                    app.uiScope.launch {
-                        callback.onSuccess(model)
+                        app.ioScope.launch {
+                            dao.createEMT(model)
+                            app.uiScope.launch {
+                                callback.onSuccess(model)
+                                callback.onComplete()
+
+                                context.intentTo(HomeActivity::class.java, true)
+                            }
+                        }
+                    }.addOnFailureListener { exception ->
+                        callback.onError(exception.localizedMessage)
                         callback.onComplete()
-
-                        context.intentTo(HomeActivity::class.java, true)
                     }
-                }
+
             }
+        }.addOnFailureListener {
+            callback.onError(it.localizedMessage)
+            callback.onComplete()
         }
     }
 
@@ -145,5 +160,20 @@ class Firebase private constructor(private val app: ADSApplication) {
             apply()
         }
         context.intentTo(MainActivity::class.java, true)
+    }
+
+    suspend fun subscribeToTopic() {
+        withContext(Dispatchers.IO) {
+            try {
+                messaging.subscribeToTopic(TOPIC_NAME).addOnCompleteListener {
+                    if (it.isSuccessful) debugLog("Subscribed to topic successfully")
+                    else debugLog("Unable to subscribe to emt topic")
+                }.addOnFailureListener {
+                    debugLog(it.localizedMessage)
+                }
+            } catch (e: Exception) {
+                debugLog(e.localizedMessage)
+            }
+        }
     }
 }

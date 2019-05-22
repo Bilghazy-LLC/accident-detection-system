@@ -1,5 +1,6 @@
 <resources>
     <string name="ads_app_name">EMT Accident DS</string>
+    <string name="long_ads_app_name">Accident Detection System</string>
     <string name="notification_channel_name">ads_notification</string>
     <string name="ads_app_desc">This variant of the application is solely for the use of any registered Emergency Medical Technician</string>
     <string name="get_started">Get Started</string>

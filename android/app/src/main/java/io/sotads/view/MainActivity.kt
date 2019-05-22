@@ -22,8 +22,12 @@ class MainActivity : BaseActivity() {
 
     fun authenticateUser(view: View) {
         if (prefs.getString(USER_KEY, null).isNullOrEmpty()) {
-            val snackbar = Snackbar.make(container, "", Snackbar.LENGTH_INDEFINITE)
+            val snackbar = Snackbar.make(container, "Logging in...", Snackbar.LENGTH_INDEFINITE)
             firebase.login(this, dao, object : Callback<EmtDataModel> {
+                override fun onInit() {
+                    snackbar.show()
+                }
+
                 override fun onError(error: String?) {
                     snackbar.apply {
                         setText(error ?: "An error occurred while logging you in")

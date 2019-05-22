@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.HomeActivity"/>
+        <activity android:name=".view.AccidentActivity"/>
         <service android:name=".core.firebase.ADSMessagingService"
                  android:exported="false">
             <intent-filter>
