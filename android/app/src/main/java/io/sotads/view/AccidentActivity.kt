@@ -86,8 +86,8 @@ class AccidentActivity : BaseActivity() {
             }
         }
 
-        createNotificationChannel(getString(R.string.notification_channel_name))
-        pushNotification("Demo notification", getString(R.string.lorem), Intent(this, HomeActivity::class.java))
+//        createNotificationChannel(getString(R.string.notification_channel_name))
+//        pushNotification("Demo notification", getString(R.string.lorem), Intent(this, HomeActivity::class.java))
     }
 
     companion object {
