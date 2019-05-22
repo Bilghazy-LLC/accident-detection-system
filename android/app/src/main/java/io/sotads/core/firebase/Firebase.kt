@@ -5,8 +5,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import io.sotads.core.util.ACCIDENTS_REF
 import io.sotads.core.util.Callback
 import io.sotads.core.util.DRIVERS_REF
+import io.sotads.core.util.EMT_REF
 import io.sotads.data.Accident
 import io.sotads.data.Driver
+import io.sotads.data.EmtDataModel
 
 class Firebase {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -66,4 +68,26 @@ class Firebase {
                 callback.onComplete()
             }
     }
+
+    fun getCurrentEmt(key: String, callback: Callback<EmtDataModel>) {
+        callback.onInit()
+
+        firestore.collection(EMT_REF)
+            .document(key)
+            .addSnapshotListener { snapshot, exception ->
+                if (snapshot != null) {
+                    callback.onSuccess(snapshot.toObject(EmtDataModel::class.java))
+                    callback.onComplete()
+                    return@addSnapshotListener
+                }
+
+                if (exception != null) {
+                    callback.onError(exception.localizedMessage)
+                    callback.onComplete()
+                    return@addSnapshotListener
+                }
+            }
+    }
+
+    fun login()
 }

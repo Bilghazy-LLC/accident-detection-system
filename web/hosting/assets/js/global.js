@@ -84,7 +84,7 @@ const login = () => {
             }).then(userInfo => {
                 if (userInfo && userInfo !== undefined) {
                     var user = userInfo.user;
-                    db.collection('emt').doc(user.uid)
+                    db.collection('admin').doc(user.uid)
                         .set({
                             name: user.displayName,
                             email: user.email,
