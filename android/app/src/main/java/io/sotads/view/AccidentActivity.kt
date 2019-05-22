@@ -33,35 +33,37 @@ class AccidentActivity : BaseActivity() {
 
         if (intent.hasExtra(ACCIDENT_KEY)) {
 
-            firebase.getAccident(intent.getStringExtra(ACCIDENT_KEY), object : Callback<Accident> {
-                override fun onInit() {
-                    toast("Loading driver\'s information...")
-                }
+            if (!intent.getStringExtra(ACCIDENT_KEY).isNullOrEmpty()) {
+                firebase.getAccident(intent.getStringExtra(ACCIDENT_KEY), object : Callback<Accident> {
+                    override fun onInit() {
+                        toast("Loading driver\'s information...")
+                    }
 
-                override fun onError(error: String?) {
-                    debugLog(error)
-                    toast(error, true)
-                }
+                    override fun onError(error: String?) {
+                        debugLog(error)
+                        toast(error, true)
+                    }
 
-                override fun onSuccess(response: Accident?) {
-                    if (response != null) {
-                        binding.accident = response
+                    override fun onSuccess(response: Accident?) {
+                        if (response != null) {
+                            binding.accident = response
 
-                        try {
-                            val location = binding.accident?.location
-                            val geocoder = Geocoder(binding.root.context, Locale.getDefault())
-                            binding.address.summary =
-                                geocoder.getFromLocation(
-                                    location?.latitude ?: 5.623,
-                                    location?.longitude ?: -0.184,
-                                    1
-                                )[0].getAddressLine(0)
-                        } catch (ex: Exception) {
-                            debugLog(ex.localizedMessage)
+                            try {
+                                val location = binding.accident?.location
+                                val geocoder = Geocoder(binding.root.context, Locale.getDefault())
+                                binding.address.summary =
+                                    geocoder.getFromLocation(
+                                        location?.latitude ?: 5.623,
+                                        location?.longitude ?: -0.184,
+                                        1
+                                    )[0].getAddressLine(0)
+                            } catch (ex: Exception) {
+                                debugLog(ex.localizedMessage)
+                            }
                         }
                     }
-                }
-            })
+                })
+            }
 
             // Bind driver information
             if (intent.hasExtra(DRIVER)) {
