@@ -1,0 +1,4 @@
+<resources>
+    <string name="ads_app_name">EMT Accident DS</string>
+    <string name="notification_channel_name">ads_notification</string>
+</resources>

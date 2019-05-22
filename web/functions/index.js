@@ -4,7 +4,6 @@ const admin = require('firebase-admin');
 // Initialize Firebase Application
 admin.initializeApp();
 
-
 // Notification for dispatch
 exports.dispatchEmt = functions.firestore.document('accidents/{key}').onUpdate((change, context) => {
     var key = context.params.key;
@@ -13,7 +12,7 @@ exports.dispatchEmt = functions.firestore.document('accidents/{key}').onUpdate((
         data: {
             title: 'Dispatch request received',
             message: '',
-            key: key,
+            key,
             timestamp: `${new Date().toDateString()}`
         }
     }).then(() => {

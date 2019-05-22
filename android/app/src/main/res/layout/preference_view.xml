@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:clickable="true"
+       android:focusable="true"
+       android:foreground="?attr/selectableItemBackgroundBorderless"
+       android:background="?attr/selectableItemBackground"
+       tools:parentTag="io.sotads.widget.PreferenceView">
+
+    <ImageView
+            android:id="@+id/icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
+            android:visibility="invisible"/>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="16dp">
+
+        <io.codelabs.widget.BaselineGridTextView
+                android:id="@+id/titleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?textAppearanceBody1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="Default SMS App"/>
+
+        <io.codelabs.widget.BaselineGridTextView
+                android:id="@+id/summaryView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:fontFeatureSettings="onum"
+                android:textAppearance="?textAppearanceBody2"
+                tools:text="Some text goes here"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+            android:id="@+id/widgetFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="16dp"/>
+
+</merge>
