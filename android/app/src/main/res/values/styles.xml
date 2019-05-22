@@ -2,6 +2,11 @@
 
     <style name="Theme.ADS" parent="Base.Theme.ADS"/>
 
+    <style name="Theme.ADS.Dark">
+        <item name="android:statusBarColor">?colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="Base.Theme.ADS" parent="Base.MaterialThemeBuilder">
         <!-- COLORS -->
@@ -45,6 +50,7 @@
         <item name="navigationViewStyle">@style/Widget.MyTheme.NavigationView</item>
         <item name="toolbarStyle">@style/Widget.MyTheme.Toolbar</item>
         <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Surface</item>
+        <item name="buttonStyle">@style/Widget.MyTheme.Button</item>
     </style>
 
     <style name="Base.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">

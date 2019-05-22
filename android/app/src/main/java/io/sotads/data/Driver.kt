@@ -3,7 +3,6 @@ package io.sotads.data
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -11,10 +10,8 @@ import kotlinx.android.parcel.Parcelize
 data class Driver(
     @PrimaryKey(autoGenerate = false)
     override val key: String,
-    @SerializedName("car_number")
-    var carNumber: String,
-    @SerializedName("emergency_contact")
-    var emergencyContact: String,
+    var car_number: String,
+    var emergency_contact: String,
     val email: String,
     val name: String
 ) : BaseDataModel {

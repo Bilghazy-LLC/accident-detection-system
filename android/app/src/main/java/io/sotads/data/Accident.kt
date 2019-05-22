@@ -1,17 +1,18 @@
 package io.sotads.data
 
-import kotlinx.android.parcel.Parcelize
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.GeoPoint
 import java.util.*
 
-@Parcelize
+//@Parcelize
 data class Accident(
-    override val key: String,
-    val driver: String,
-//    var location: GeoPoint,
-    val timestamp: Date = Date(),
-    var available: Boolean = true,
-    var dispatched: Boolean = false
-) : BaseDataModel {
+    /*override */val key: String,
+                 val driver: DocumentReference?,
+                 var location: GeoPoint,
+                 val timestamp: Date = Date(),
+                 var available: Boolean = true,
+                 var dispatched: Boolean = false
+) /*: BaseDataModel*/ {
 
-    constructor() : this("", "")
+    constructor() : this("", null, GeoPoint(5.654, -0.184))
 }

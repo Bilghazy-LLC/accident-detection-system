@@ -8,7 +8,7 @@ import io.sotads.core.util.ROOM_DB_NAME
 import io.sotads.data.Driver
 import io.sotads.data.EmtDataModel
 
-@Database(entities = [EmtDataModel::class, Driver::class], version = 2, exportSchema = true)
+@Database(entities = [EmtDataModel::class, Driver::class], version = 3, exportSchema = true)
 abstract class ADSDatabase : RoomDatabase() {
 
     abstract fun dao(): ADSDao

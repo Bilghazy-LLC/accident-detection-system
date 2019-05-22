@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/large_avatar_size"
+                                            android:layout_marginBottom="@dimen/padding_large"
+                                            android:src="@drawable/twotone_local_hospital_24px"
+                                            android:alpha="0.6"
+                                            android:layout_height="@dimen/large_avatar_size"/>
+
+    <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/navigation_drawer_width"
+                                            android:src="@color/mid_grey"
+                                            android:layout_height="@dimen/spacing_xlarge"/>
+
+    <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/nav_header_height"
+                                            android:src="@color/mid_grey"
+                                            android:layout_marginStart="@dimen/spacing_xlarge"
+                                            android:layout_gravity="start|center_vertical"
+                                            android:layout_marginTop="@dimen/spacing_micro"
+                                            android:layout_height="@dimen/spacing_large"/>
+
+    <io.codelabs.widget.BaselineGridTextView android:layout_width="match_parent"
+                                             android:text="Looks like we could not find what you were looking for..."
+                                             android:layout_height="wrap_content"
+                                             android:textAppearance="?textAppearanceBody1"
+                                             android:gravity="center"
+                                             android:padding="@dimen/padding_large"/>
+
+</LinearLayout>

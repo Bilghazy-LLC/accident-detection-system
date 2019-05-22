@@ -24,8 +24,10 @@
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
-        <activity android:name=".view.HomeActivity"/>
-        <activity android:name=".view.AccidentActivity"/>
+        <activity android:name=".view.HomeActivity"
+                  android:theme="@style/Theme.ADS.Dark"/>
+        <activity android:name=".view.AccidentActivity"
+                  android:theme="@style/Theme.ADS.Dark"/>
         <service android:name=".core.firebase.ADSMessagingService"
                  android:exported="false">
             <intent-filter>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="accident" type="io.sotads.data.Accident"/>
+        <variable name="driver" type="io.sotads.data.Driver"/>
+        <import type="android.text.format.DateUtils"/>
+    </data>
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            style="?materialCardViewStyle"
+            app:cardBackgroundColor="@color/background_card"
+            android:layout_margin="@dimen/spacing_micro"
+            app:cardElevation="@dimen/z_card"
+            android:layout_height="wrap_content">
+
+
+        <io.codelabs.widget.ForegroundLinearLayout android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:orientation="vertical"
+                                                   android:padding="@dimen/padding_normal">
+
+            <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
+                                                     android:layout_height="wrap_content"
+                                                     android:maxLines="1"
+                                                     android:ellipsize="end"
+                                                     android:layout_gravity="center"
+                                                     android:alpha="?alphaEmphasisHigh"
+                                                     android:text="Accident Details"
+                                                     android:textAppearance="?textAppearanceHeadline6"/>
+
+            <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
+                                                     android:layout_height="wrap_content"
+                                                     android:maxLines="1"
+                                                     android:ellipsize="end"
+                                                     android:layout_gravity="center"
+                                                     android:alpha="?alphaEmphasisMedium"
+                                                     android:text="Victim\'s Information"
+                                                     android:textAppearance="?textAppearanceBody1"/>
+
+            <io.sotads.widget.PreferenceView android:layout_width="match_parent"
+                                             app:title="Car #"
+                                             app:summary="@{driver.car_number, default=`GT-1123-07`}"
+                                             app:icon="@drawable/twotone_directions_bus_24px"
+                                             android:layout_height="wrap_content"/>
+
+
+            <io.sotads.widget.PreferenceView android:layout_width="match_parent"
+                                             app:title="Driver"
+                                             app:summary="@{driver.name, default=`@string/dummy_username`}"
+                                             app:icon="@drawable/twotone_perm_identity_24px"
+                                             android:layout_height="wrap_content"/>
+
+            <View android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/divider"
+                  android:layout_margin="@dimen/spacing_micro"/>
+
+            <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
+                                                     android:layout_height="wrap_content"
+                                                     android:maxLines="1"
+                                                     android:ellipsize="end"
+                                                     android:layout_gravity="center"
+                                                     android:alpha="?alphaEmphasisMedium"
+                                                     android:text="Additional Information"
+                                                     android:layout_marginTop="@dimen/spacing_normal"
+                                                     android:textAppearance="?textAppearanceBody1"
+                                                     android:id="@+id/driver_name"/>
+
+            <io.sotads.widget.PreferenceView android:layout_width="match_parent"
+                                             app:title="Location"
+                                             android:id="@+id/address"
+                                             app:summary="Getting incident\'s location..."
+                                             app:icon="@drawable/twotone_location_on_24px"
+                                             android:layout_height="wrap_content"/>
+
+            <io.sotads.widget.PreferenceView android:layout_width="match_parent"
+                                             app:title="Date of occurrence"
+                                             app:summary="@{DateUtils.getRelativeTimeSpanString(accident.timestamp.time, System.currentTimeMillis(),DateUtils.SECOND_IN_MILLIS).toString(), default=`@string/dummy_reg_date`}"
+                                             app:icon="@drawable/twotone_event_24px"
+                                             android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                               android:layout_height="wrap_content"
+                                                               android:layout_gravity="end"
+                                                               android:layout_marginBottom="@dimen/spacing_normal"
+                                                               style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                                               android:text="@string/show_more"
+                                                               android:id="@+id/view_details"/>
+
+        </io.codelabs.widget.ForegroundLinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

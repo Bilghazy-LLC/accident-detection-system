@@ -23,4 +23,8 @@
     <!--Toolbar-->
     <style name="Widget.MyTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary"/>
 
+    <style name="Widget.MyTheme.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/color_secondary</item>
+    </style>
+
 </resources>

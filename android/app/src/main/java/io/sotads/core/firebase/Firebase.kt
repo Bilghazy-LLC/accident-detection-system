@@ -15,9 +15,7 @@ import io.sotads.data.Driver
 import io.sotads.data.EmtDataModel
 import io.sotads.view.HomeActivity
 import io.sotads.view.MainActivity
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class Firebase private constructor(private val app: ADSApplication) {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -79,6 +77,23 @@ class Firebase private constructor(private val app: ADSApplication) {
                     callback.onError("Unable to retrieve all accidents")
                     callback.onComplete()
                 }
+            }.addOnFailureListener {
+                callback.onError(it.localizedMessage)
+                callback.onComplete()
+            }
+    }
+
+    fun getDriver(key: String, callback: Callback<Driver>) {
+        callback.onInit()
+
+        firestore.collection(DRIVERS_REF).document(key).get()
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    callback.onSuccess(it.result?.toObject(Driver::class.java))
+                } else {
+                    callback.onError("Could not retrieve this driver\'s information")
+                }
+                callback.onComplete()
             }.addOnFailureListener {
                 callback.onError(it.localizedMessage)
                 callback.onComplete()
@@ -162,18 +177,16 @@ class Firebase private constructor(private val app: ADSApplication) {
         context.intentTo(MainActivity::class.java, true)
     }
 
-    suspend fun subscribeToTopic() {
-        withContext(Dispatchers.IO) {
-            try {
-                messaging.subscribeToTopic(TOPIC_NAME).addOnCompleteListener {
-                    if (it.isSuccessful) debugLog("Subscribed to topic successfully")
-                    else debugLog("Unable to subscribe to emt topic")
-                }.addOnFailureListener {
-                    debugLog(it.localizedMessage)
-                }
-            } catch (e: Exception) {
-                debugLog(e.localizedMessage)
+    fun subscribeToTopic() {
+        try {
+            messaging.subscribeToTopic(TOPIC_NAME).addOnCompleteListener {
+                if (it.isSuccessful) debugLog("Subscribed to topic successfully")
+                else debugLog("Unable to subscribe to emt topic")
+            }.addOnFailureListener {
+                debugLog(it.localizedMessage)
             }
+        } catch (e: Exception) {
+            debugLog(e.localizedMessage)
         }
     }
 }
