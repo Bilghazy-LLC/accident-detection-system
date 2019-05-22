@@ -1,16 +1,21 @@
 package io.sotads.core.firebase
 
+import androidx.core.content.edit
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import io.sotads.core.util.ACCIDENTS_REF
-import io.sotads.core.util.Callback
-import io.sotads.core.util.DRIVERS_REF
-import io.sotads.core.util.EMT_REF
+import io.codelabs.sdk.util.intentTo
+import io.sotads.core.ADSApplication
+import io.sotads.core.room.ADSDao
+import io.sotads.core.theme.BaseActivity
+import io.sotads.core.util.*
 import io.sotads.data.Accident
 import io.sotads.data.Driver
 import io.sotads.data.EmtDataModel
+import io.sotads.view.HomeActivity
+import io.sotads.view.MainActivity
+import kotlinx.coroutines.launch
 
-class Firebase {
+class Firebase private constructor(private val app: ADSApplication) {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
@@ -19,11 +24,14 @@ class Firebase {
         private var instance: Firebase? = null
 
         @JvmStatic
-        fun get(): Firebase = instance ?: synchronized(this) {
-            instance ?: Firebase().also { instance = it }
+        fun get(app: ADSApplication): Firebase = instance ?: synchronized(this) {
+            instance ?: Firebase(app).also { instance = it }
         }
     }
 
+    /**
+     * Get all [Driver]s
+     */
     fun getDrivers(callback: Callback<MutableList<Driver>>) {
         callback.onInit()
         firestore.collection(DRIVERS_REF)
@@ -46,6 +54,9 @@ class Firebase {
             }
     }
 
+    /**
+     * Get all [Accident]s
+     */
     fun getAccidents(callback: Callback<MutableList<Accident>>) {
         callback.onInit()
         firestore.collection(ACCIDENTS_REF)
@@ -89,5 +100,50 @@ class Firebase {
             }
     }
 
-    fun login()
+    /**
+     * Sign in
+     */
+    fun login(context: BaseActivity, dao: ADSDao, callback: Callback<EmtDataModel>) {
+        callback.onInit()
+
+        auth.signInAnonymously().addOnFailureListener {
+            callback.onError(it.localizedMessage)
+            callback.onComplete()
+        }.addOnCompleteListener {
+            val authResult = it.result
+            val user = authResult?.user
+            if (user != null) {
+                // Create model
+                val model = EmtDataModel(user.uid)
+
+                // Store model in shared prefs
+                app.prefs.edit {
+                    putString(USER_KEY, model.key)
+                    apply()
+                }
+
+                app.ioScope.launch {
+                    dao.createEMT(model)
+                    app.uiScope.launch {
+                        callback.onSuccess(model)
+                        callback.onComplete()
+
+                        context.intentTo(HomeActivity::class.java, true)
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Sign out
+     */
+    fun logout(context: BaseActivity, key: String) {
+        auth.signOut()
+        app.prefs.edit {
+            putString(USER_KEY, null)
+            apply()
+        }
+        context.intentTo(MainActivity::class.java, true)
+    }
 }

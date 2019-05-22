@@ -6,7 +6,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        tools:context=".MainActivity">
+        android:id="@+id/container"
+        tools:context=".view.MainActivity">
 
     <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
                                              android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
     <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
                                                        android:layout_height="wrap_content"
                                                        android:text="@string/get_started"
+                                                       android:id="@+id/login_button"
                                                        android:onClick="authenticateUser"
                                                        android:layout_marginTop="@dimen/spacing_xxxlarge"
                                                        android:fontFamily="@font/rubik_bold"/>
