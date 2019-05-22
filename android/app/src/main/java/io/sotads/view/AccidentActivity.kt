@@ -1,13 +1,20 @@
 package io.sotads.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.transition.ChangeBounds
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.toast
 import io.sotads.R
 import io.sotads.core.theme.BaseActivity
 import io.sotads.core.util.Callback
+import io.sotads.core.util.createNotificationChannel
+import io.sotads.core.util.pushNotification
+import io.sotads.data.Accident
 import io.sotads.data.Driver
 import io.sotads.databinding.ActivityAccidentBinding
 
@@ -23,6 +30,21 @@ class AccidentActivity : BaseActivity() {
         debugLog("Driver: ${intent.getStringExtra(DRIVER)}")
 
         if (intent.hasExtra(ACCIDENT_KEY)) {
+
+            firebase.getAccident(intent.getStringExtra(ACCIDENT_KEY), object : Callback<Accident> {
+                override fun onInit() {
+                    toast("Loading driver\'s information...")
+                }
+
+                override fun onError(error: String?) {
+                    debugLog(error)
+                    toast(error, true)
+                }
+
+                override fun onSuccess(response: Accident?) {
+                    if (response != null) binding.accident = response
+                }
+            })
 
             // Bind driver information
             if (intent.hasExtra(DRIVER)) {
@@ -44,6 +66,9 @@ class AccidentActivity : BaseActivity() {
                 })
             }
         }
+
+        createNotificationChannel(getString(R.string.notification_channel_name))
+        pushNotification("Demo notification", getString(R.string.lorem), Intent(this, HomeActivity::class.java))
     }
 
     companion object {
@@ -52,5 +77,29 @@ class AccidentActivity : BaseActivity() {
         const val DRIVER = "driver"
     }
 
-    fun acceptDispatch(view: View) {}
+    fun acceptDispatch(view: View) {
+        firebase.acceptDispatch(binding.accident?.key, object : Callback<Void> {
+            override fun onInit() {
+                TransitionManager.beginDelayedTransition(binding.container, ChangeBounds())
+                binding.loading.visibility = View.VISIBLE
+                binding.dispatch.visibility = View.GONE
+            }
+
+            override fun onError(error: String?) {
+                toast(error, true)
+            }
+
+            override fun onSuccess(response: Void?) {
+                toast("Dispatch accepted. please attend to this driver immediately. Thank you", true)
+                finishAfterTransition()
+            }
+
+            override fun onComplete() {
+                TransitionManager.beginDelayedTransition(binding.container, Slide())
+                binding.loading.visibility = View.GONE
+                binding.dispatch.visibility = View.VISIBLE
+            }
+        })
+
+    }
 }

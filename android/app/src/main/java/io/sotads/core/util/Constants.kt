@@ -39,7 +39,7 @@ fun Context.pushNotification(title: String?, content: String?, intent: Intent) {
     )
 
     //Create notification builder
-    val builder = NotificationCompat.Builder(this, "FLEET_CHANNEL_ID")
+    val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_name))
         .setSmallIcon(R.drawable.shr_logo)
         .setContentTitle(title)
         .setContentText(content)
@@ -69,7 +69,11 @@ fun Context.createNotificationChannel(channelName: String) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val descriptionText = getString(R.string.notification_channel_name)
         val channel =
-            NotificationChannel("FLEET_CHANNEL_ID", channelName, NotificationManager.IMPORTANCE_DEFAULT).apply {
+            NotificationChannel(
+                getString(R.string.notification_channel_name),
+                channelName,
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
                 description = descriptionText
             }
 

@@ -25,9 +25,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.HomeActivity"
+                  android:configChanges="screenSize|screenLayout|orientation"
                   android:theme="@style/Theme.ADS.Dark"/>
+
         <activity android:name=".view.AccidentActivity"
+                  android:configChanges="screenSize|screenLayout|orientation"
                   android:theme="@style/Theme.ADS.Dark"/>
+
         <service android:name=".core.firebase.ADSMessagingService"
                  android:exported="false">
             <intent-filter>

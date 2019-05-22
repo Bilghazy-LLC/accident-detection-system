@@ -1,5 +1,6 @@
 package io.sotads.core.firebase
 
+import android.app.Activity
 import androidx.core.content.edit
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -60,25 +61,20 @@ class Firebase private constructor(private val app: ADSApplication) {
     /**
      * Get all [Accident]s
      */
-    fun getAccidents(callback: Callback<MutableList<Accident>>) {
+    fun getAccidents(host: Activity, callback: Callback<MutableList<Accident>>) {
         callback.onInit()
         firestore.collection(ACCIDENTS_REF)
-            .whereEqualTo("dispatched", true)
+            .whereEqualTo("available", true)
             .limit(50)
-            .get()
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    val snapshot = it.result
-                    if (snapshot != null) callback.onSuccess(snapshot.toObjects(Accident::class.java))
-                    else callback.onError("Cannot get this collection of accidents")
+            .addSnapshotListener(host) { snapshot, exception ->
+                if (exception != null) {
+                    callback.onError(exception.localizedMessage)
                     callback.onComplete()
-                    return@addOnCompleteListener
-                } else {
-                    callback.onError("Unable to retrieve all accidents")
-                    callback.onComplete()
+                    return@addSnapshotListener
                 }
-            }.addOnFailureListener {
-                callback.onError(it.localizedMessage)
+
+                if (snapshot != null) callback.onSuccess(snapshot.toObjects(Accident::class.java))
+                else callback.onError("Cannot get this collection of accidents")
                 callback.onComplete()
             }
     }
@@ -92,6 +88,23 @@ class Firebase private constructor(private val app: ADSApplication) {
                     callback.onSuccess(it.result?.toObject(Driver::class.java))
                 } else {
                     callback.onError("Could not retrieve this driver\'s information")
+                }
+                callback.onComplete()
+            }.addOnFailureListener {
+                callback.onError(it.localizedMessage)
+                callback.onComplete()
+            }
+    }
+
+    fun getAccident(key: String, callback: Callback<Accident>) {
+        callback.onInit()
+
+        firestore.collection(ACCIDENTS_REF).document(key).get()
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    callback.onSuccess(it.result?.toObject(Accident::class.java))
+                } else {
+                    callback.onError("Could not retrieve this accident\'s information")
                 }
                 callback.onComplete()
             }.addOnFailureListener {
@@ -187,6 +200,29 @@ class Firebase private constructor(private val app: ADSApplication) {
             }
         } catch (e: Exception) {
             debugLog(e.localizedMessage)
+        }
+    }
+
+    fun acceptDispatch(key: String?, callback: Callback<Void>) {
+        callback.onInit()
+
+        if (!key.isNullOrEmpty()) {
+            try {
+                firestore.collection(ACCIDENTS_REF).document(key).update(
+                    mapOf<String, Any?>(
+                        "available" to false
+                    )
+                ).addOnFailureListener {
+                    callback.onError(it.localizedMessage)
+                    callback.onComplete()
+                }.addOnCompleteListener {
+                    callback.onSuccess(null)
+                    callback.onComplete()
+                }
+            } catch (ex: Exception) {
+                callback.onError(ex.localizedMessage)
+                callback.onComplete()
+            }
         }
     }
 }

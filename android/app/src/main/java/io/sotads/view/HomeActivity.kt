@@ -3,7 +3,6 @@ package io.sotads.view
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import io.codelabs.recyclerview.GridItemDividerDecoration
@@ -34,10 +33,19 @@ class HomeActivity : BaseActivity() {
         binding.grid.adapter = adapter
         val lm = LinearLayoutManager(this)
         binding.grid.layoutManager = lm
-        binding.grid.addItemDecoration(/*DividerItemDecoration(this, lm.orientation)*/ GridItemDividerDecoration(this,R.dimen.divider_height,R.color.divider))
+        binding.grid.addItemDecoration(
+            GridItemDividerDecoration(
+                this,
+                R.dimen.divider_height,
+                R.color.divider
+            )
+        )
         binding.grid.setHasFixedSize(true)
+    }
 
-        firebase.getAccidents(object : Callback<MutableList<Accident>> {
+    private fun fetchData() {
+        // Fetch accidents
+        firebase.getAccidents(this, object : Callback<MutableList<Accident>> {
             override fun onError(error: String?) {
                 binding.shimmerContainer.stopShimmer()
                 toast(error, true)
@@ -56,10 +64,10 @@ class HomeActivity : BaseActivity() {
                 binding.grid.visibility = View.VISIBLE
             }
         })
-
     }
 
     override fun onEnterAnimationComplete() {
+        fetchData()
         (application as ADSApplication).ioScope.launch {
             firebase.subscribeToTopic()
         }

@@ -66,9 +66,9 @@ class AccidentAdapter constructor(private val ctx: BaseActivity) : RecyclerView.
             }
         })
 
-        holder.binding.root.setOnClickListener {
+       /* holder.binding.root.setOnClickListener {
             performIntent((holder.binding.accident as? Accident)?.key, holder.binding.driver as? Driver)
-        }
+        }*/
 
         holder.binding.viewDetails.setOnClickListener {
             performIntent((holder.binding.accident as? Accident)?.key, holder.binding.driver as? Driver)

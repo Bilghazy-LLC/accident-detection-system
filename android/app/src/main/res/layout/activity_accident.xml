@@ -91,11 +91,25 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_margin="@dimen/fab_margin"
+                android:id="@+id/dispatch"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:onClick="acceptDispatch"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 app:icon="@drawable/twotone_group_add_24px"
                 android:text="@string/accept_dispatch"/>
+
+        <androidx.core.widget.ContentLoadingProgressBar android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        style="@style/Widget.AppCompat.ProgressBar"
+                                                        android:indeterminate="true"
+                                                        android:indeterminateTint="@color/grey_300"
+                                                        android:indeterminateTintMode="src_in"
+                                                        android:id="@+id/loading"
+                                                        app:layout_constraintBottom_toBottomOf="parent"
+                                                        android:layout_margin="@dimen/fab_margin"
+                                                        app:layout_constraintEnd_toEndOf="parent"
+                                                        android:visibility="gone"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
