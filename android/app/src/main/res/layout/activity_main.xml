@@ -14,17 +14,21 @@
                                              android:textAppearance="?textAppearanceHeadline5"
                                              android:text="@string/ads_app_name"/>
 
-    <io.codelabs.widget.FourThreeImageView android:layout_width="match_parent"
-                                           android:layout_height="wrap_content"
-                                           android:src="@drawable/app_logo"
-                                           android:scaleType="centerCrop"/>
+    <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:paddingTop="@dimen/spacing_micro"
+                                             android:paddingStart="@dimen/padding_normal"
+                                             android:paddingEnd="@dimen/padding_normal"
+                                             android:gravity="center"
+                                             android:textAppearance="?textAppearanceSubtitle2"
+                                             android:text="@string/ads_app_desc"/>
 
 
     <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
                                                        android:layout_height="wrap_content"
-                                                       android:text="Get Started"
+                                                       android:text="@string/get_started"
                                                        android:onClick="authenticateUser"
-                                                       android:layout_marginTop="@dimen/spacing_xlarge"
+                                                       android:layout_marginTop="@dimen/spacing_xxxlarge"
                                                        android:fontFamily="@font/rubik_bold"/>
 
 </io.codelabs.widget.ForegroundLinearLayout>

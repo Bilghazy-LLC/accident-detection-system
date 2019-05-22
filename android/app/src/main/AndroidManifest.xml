@@ -12,6 +12,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             tools:replace="android:label"
+            android:name=".core.ADSApplication"
             android:theme="@style/Theme.ADS">
         <activity android:name=".MainActivity">
             <intent-filter>
