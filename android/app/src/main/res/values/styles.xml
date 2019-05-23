@@ -4,7 +4,7 @@
 
     <style name="Theme.ADS.Dark">
         <item name="android:statusBarColor">?colorPrimaryVariant</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <!-- Base application theme. -->

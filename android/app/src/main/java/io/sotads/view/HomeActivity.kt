@@ -5,6 +5,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
+import com.afollestad.materialdialogs.MaterialDialog
 import io.codelabs.recyclerview.GridItemDividerDecoration
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.toast
@@ -12,6 +13,7 @@ import io.sotads.R
 import io.sotads.core.ADSApplication
 import io.sotads.core.theme.BaseActivity
 import io.sotads.core.util.Callback
+import io.sotads.core.util.USER_KEY
 import io.sotads.data.Accident
 import io.sotads.databinding.ActivityHomeBinding
 import io.sotads.view.recyclerview.AccidentAdapter
@@ -73,6 +75,18 @@ class HomeActivity : BaseActivity() {
         }
     }
 
-    fun logout(view: View) {}
+    fun logout(view: View) {
+        MaterialDialog(this).show {
+            title(text = "Confirm action")
+            message(text = "Do you wish to logout of ${getString(R.string.long_ads_app_name)}?")
+            positiveButton(text = "Logout") {
+                it.dismiss()
+                firebase.logout(this@HomeActivity, prefs.getString(USER_KEY, null) ?: "dummy")
+            }
+            negativeButton(text = "Dismiss") {
+                it.dismiss()
+            }
+        }
+    }
 
 }

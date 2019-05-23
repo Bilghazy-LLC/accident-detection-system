@@ -67,7 +67,7 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
 
-    implementation 'com.github.Quabynah-Codelabs.quabynah-codelabs-sdk:sdk-library:v1.3.5.3'
+    implementation 'com.github.Quabynah-Codelabs.quabynah-codelabs-sdk:sdk-library:v1.3.5.5'
 
     def room_version = "2.1.0-beta01"
     implementation "androidx.room:room-runtime:$room_version"
