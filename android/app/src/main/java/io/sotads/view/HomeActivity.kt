@@ -73,4 +73,6 @@ class HomeActivity : BaseActivity() {
         }
     }
 
+    fun logout(view: View) {}
+
 }

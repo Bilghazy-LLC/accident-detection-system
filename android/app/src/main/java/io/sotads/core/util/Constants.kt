@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
+import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import io.sotads.R
 import io.sotads.core.firebase.ADSMessagingService
@@ -26,7 +27,7 @@ const val ACCIDENTS_REF = "accidents"
 const val DRIVERS_REF = "drivers"
 
 
-fun Context.pushNotification(title: String?, content: String?, intent: Intent) {
+fun Context.pushNotification(title: String?, content: String?, intent: Intent,@DrawableRes icon: Int = R.drawable.shr_logo) {
     // Create a notification instance
     val manager = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
 
@@ -40,7 +41,7 @@ fun Context.pushNotification(title: String?, content: String?, intent: Intent) {
 
     //Create notification builder
     val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel_name))
-        .setSmallIcon(R.drawable.shr_logo)
+        .setSmallIcon(icon)
         .setContentTitle(title)
         .setContentText(content)
         .setContentIntent(pi)

@@ -3,11 +3,18 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:gravity="center"
+        android:background="@color/white"
         android:id="@+id/container"
         tools:context=".view.MainActivity">
+
+    <io.codelabs.widget.ForegroundImageView android:layout_width="match_parent"
+                                            android:layout_height="@dimen/nav_header_height"
+                                            android:src="@drawable/logo"
+                                            android:scaleType="centerCrop"
+                                            android:layout_margin="@dimen/padding_large"/>
 
     <io.codelabs.widget.BaselineGridTextView android:layout_width="wrap_content"
                                              android:layout_height="wrap_content"
@@ -30,7 +37,19 @@
                                                        android:text="@string/get_started"
                                                        android:id="@+id/login_button"
                                                        android:onClick="authenticateUser"
-                                                       android:layout_marginTop="@dimen/spacing_xxxlarge"
+                                                       android:layout_marginTop="@dimen/spacing_xxlarge"
                                                        android:fontFamily="@font/rubik_bold"/>
+
+    <androidx.core.widget.ContentLoadingProgressBar android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    style="@style/Widget.AppCompat.ProgressBar"
+                                                    android:indeterminate="true"
+                                                    android:indeterminateTint="@color/grey_300"
+                                                    android:indeterminateTintMode="src_in"
+                                                    android:id="@+id/loading"
+                                                    app:layout_constraintBottom_toBottomOf="parent"
+                                                    android:layout_marginTop="@dimen/spacing_xxlarge"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    android:visibility="gone"/>
 
 </io.codelabs.widget.ForegroundLinearLayout>

@@ -15,7 +15,7 @@ class ADSMessagingService : FirebaseMessagingService() {
         if (rm != null && rm.data != null) {
             val data = rm.data
 
-            createNotificationChannel(data["title"] ?: getString(R.string.ads_app_name))
+            createNotificationChannel(data["title"] ?: getString(R.string.notification_channel_name))
 
             pushNotification(
                 data["title"],

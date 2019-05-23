@@ -7,6 +7,7 @@
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
                                                          android:layout_height="match_parent"
+                                                         tools:context=".view.HomeActivity"
                                                          android:id="@+id/container">
 
         <com.google.android.material.appbar.AppBarLayout android:layout_width="match_parent"
@@ -112,6 +113,18 @@
                                                        android:visibility="gone"
                                                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                                        android:id="@+id/grid"/>
+
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:id="@+id/dispatch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:onClick="logout"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:icon="@drawable/ic_exit"
+                    android:text="@string/logout"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

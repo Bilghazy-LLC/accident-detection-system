@@ -2,6 +2,8 @@ package io.sotads.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import io.codelabs.sdk.util.debugLog
@@ -26,6 +28,9 @@ class MainActivity : BaseActivity() {
             firebase.login(this, dao, object : Callback<EmtDataModel> {
                 override fun onInit() {
                     snackbar.show()
+                    TransitionManager.beginDelayedTransition(container, Slide())
+                    loading.visibility = View.VISIBLE
+                    login_button.visibility = View.GONE
                 }
 
                 override fun onError(error: String?) {
@@ -38,6 +43,12 @@ class MainActivity : BaseActivity() {
 
                 override fun onSuccess(response: EmtDataModel?) {
                     debugLog("Logged in user: $response")
+                }
+
+                override fun onComplete() {
+                    TransitionManager.beginDelayedTransition(container, Slide())
+                    loading.visibility = View.GONE
+                    login_button.visibility = View.VISIBLE
                 }
             })
         } else {

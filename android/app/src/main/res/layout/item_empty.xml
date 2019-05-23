@@ -13,6 +13,8 @@
 
     <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/navigation_drawer_width"
                                             android:src="@color/mid_grey"
+                                            android:layout_marginStart="@dimen/spacing_xlarge"
+                                            android:layout_gravity="start|center_vertical"
                                             android:layout_height="@dimen/spacing_xlarge"/>
 
     <io.codelabs.widget.ForegroundImageView android:layout_width="@dimen/nav_header_height"
