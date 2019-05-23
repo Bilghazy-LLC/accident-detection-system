@@ -5,7 +5,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
-import com.afollestad.materialdialogs.MaterialDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.codelabs.recyclerview.GridItemDividerDecoration
 import io.codelabs.sdk.util.debugLog
 import io.codelabs.sdk.util.toast
@@ -76,17 +76,15 @@ class HomeActivity : BaseActivity() {
     }
 
     fun logout(view: View) {
-        MaterialDialog(this).show {
-            title(text = "Confirm action")
-            message(text = "Do you wish to logout of ${getString(R.string.long_ads_app_name)}?")
-            positiveButton(text = "Logout") {
-                it.dismiss()
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Confirm action")
+            .setMessage("Do you wish to logout of ${getString(R.string.long_ads_app_name)}?")
+            .setPositiveButton("Logout") { dialog, _ ->
+                dialog.dismiss()
                 firebase.logout(this@HomeActivity, prefs.getString(USER_KEY, null) ?: "dummy")
             }
-            negativeButton(text = "Dismiss") {
-                it.dismiss()
-            }
-        }
+            .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
 }
