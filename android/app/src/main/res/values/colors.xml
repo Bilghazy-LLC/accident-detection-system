@@ -5,7 +5,7 @@
     <color name="color_secondary">#f9aa33</color>
     <color name="color_secondary_variant">#4a6572</color>
 
-    <color name="color_background">@color/background_light</color>
+    <color name="color_background">@color/background_lightish</color>
 <!--    <color name="color_background">#b9e4c9</color>-->
     <color name="color_surface">#fffbe6</color>
     <color name="color_error">#b00020</color>

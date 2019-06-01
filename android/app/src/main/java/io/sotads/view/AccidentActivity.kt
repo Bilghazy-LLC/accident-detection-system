@@ -26,6 +26,7 @@ class AccidentActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_accident)
+        binding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
         debugLog("Accident Key: ${intent.getStringExtra(ACCIDENT_KEY)}")
         debugLog("Driver Key: ${intent.getStringExtra(DRIVER_KEY)}")

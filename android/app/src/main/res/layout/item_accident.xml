@@ -81,7 +81,7 @@
 
             <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
                                                                android:layout_height="wrap_content"
-                                                               android:layout_gravity="end"
+                                                               android:layout_gravity="start"
                                                                android:layout_marginBottom="@dimen/spacing_normal"
                                                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                                                                android:text="@string/show_more"

@@ -94,7 +94,7 @@
                 android:id="@+id/dispatch"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:onClick="acceptDispatch"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.MaterialComponents.Button"
                 app:icon="@drawable/twotone_group_add_24px"
                 android:text="@string/accept_dispatch"/>
 

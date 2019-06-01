@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "869290820627",
-    "firebase_url": "https://sot-accident-detection.firebaseio.com",
-    "project_id": "sot-accident-detection",
-    "storage_bucket": "sot-accident-detection.appspot.com"
+    "project_number": "2547320067",
+    "firebase_url": "https://sot-accident-detection-2019.firebaseio.com",
+    "project_id": "sot-accident-detection-2019",
+    "storage_bucket": "sot-accident-detection-2019.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:869290820627:android:01907b167e5f4914",
+        "mobilesdk_app_id": "1:2547320067:android:01907b167e5f4914",
         "android_client_info": {
           "package_name": "io.sotads"
         }
       },
       "oauth_client": [
         {
-          "client_id": "869290820627-q48uihsh6mk6objdlco01g5k1bgok78n.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "io.sotads",
-            "certificate_hash": "c11d545f2fb712fb89c3b8dfbc05873bb8658d8d"
-          }
-        },
-        {
-          "client_id": "869290820627-qld9ki9a8o2eddnl5goi5aj58l24datk.apps.googleusercontent.com",
+          "client_id": "2547320067-o9618bs05195fald4jknvbb9ml418uss.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDn56ZWOaSSdbXn9c_MZLWxyqb3osnd0Ec"
+          "current_key": "AIzaSyBZRw29TWnIjJyz8rY7nFSb6tnC9T7T_-A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "869290820627-qld9ki9a8o2eddnl5goi5aj58l24datk.apps.googleusercontent.com",
+              "client_id": "2547320067-o9618bs05195fald4jknvbb9ml418uss.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

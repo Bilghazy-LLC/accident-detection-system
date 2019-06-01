@@ -122,7 +122,7 @@
                     android:id="@+id/dispatch"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:onClick="logout"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.MaterialComponents.Button"
                     app:icon="@drawable/ic_exit"
                     android:text="@string/logout"/>
 
