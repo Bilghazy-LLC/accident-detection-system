@@ -250,6 +250,15 @@ $(document).ready(function () {
     var carNumber = $('#car-number');
 
     var driverKey = window.localStorage.getItem('sot-driver');
+    isNewDriver = driverKey == null;
+    if (!isNewDriver) {
+        username.val('');
+        email.val('');
+        email.attr('disabled', false);
+        contact.val('');
+        carNumber.val('');
+    }
+
 
     if (driverKey && driverKey !== undefined) {
         // Setup user information

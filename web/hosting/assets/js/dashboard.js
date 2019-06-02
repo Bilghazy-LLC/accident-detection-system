@@ -471,3 +471,8 @@ const initDashboardPageCharts = function () {
     });
 
 };
+
+const navDriver = () => {
+    window.localStorage.setItem('sot-driver', '');
+    window.location.href = 'driver.html';
+}
